@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
@@ -7,7 +8,19 @@ const RegisterPage = () => {
   const [password, setPassword] = useState("");
   async function registerUser(ev) {
     ev.preventDefault();
+    console.log(name, email, password);
+    try {
+      await axios.post("http://localhost:4000/api/register", {
+        name,
+        email,
+        password,
+      });
+      alert("Registration successful. Now you can log in");
+    } catch (e) {
+      alert("Registration failed. Please try again later");
+    }
   }
+
   return (
     <div className="mt-4 grow flex items-center justify-around">
       <div className="mb-64">
